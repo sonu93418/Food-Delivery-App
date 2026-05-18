@@ -1,0 +1,94 @@
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView, StatusBar, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+
+export default function MyOrdersScreen({ navigation }) {
+  const orders = [
+    { id: '1', restaurant: 'Biryani House', items: 'Chicken Biryani, Raita', total: 298, date: 'May 15, 2026', status: 'Delivered' },
+    { id: '2', restaurant: 'Pizza Paradise', items: 'Margherita Pizza, Garlic Bread', total: 448, date: 'May 12, 2026', status: 'Delivered' },
+    { id: '3', restaurant: 'Burger Barn', items: 'Cheese Burger, Fries, Milkshake', total: 497, date: 'May 10, 2026', status: 'Delivered' },
+    { id: '4', restaurant: 'Dragon Wok', items: 'Hakka Noodles, Spring Rolls', total: 308, date: 'May 7, 2026', status: 'Delivered' },
+    { id: '5', restaurant: 'Dosa Corner', items: 'Masala Dosa, Filter Coffee', total: 178, date: 'May 3, 2026', status: 'Delivered' },
+  ];
+
+  return (
+    <View style={styles.container}>
+      <StatusBar barStyle="light-content" />
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+          <Ionicons name="arrow-back" size={22} color="#fff" />
+        </TouchableOpacity>
+        <Text style={styles.title}>My Orders</Text>
+      </View>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
+        {orders.map((order) => (
+          <View key={order.id} style={styles.orderCard}>
+            <View style={styles.orderTop}>
+              <View style={styles.orderIcon}>
+                <Ionicons name="restaurant" size={18} color="#FF6B35" />
+              </View>
+              <View style={styles.orderInfo}>
+                <Text style={styles.orderName}>{order.restaurant}</Text>
+                <Text style={styles.orderItems}>{order.items}</Text>
+              </View>
+              <View style={styles.statusBadge}>
+                <Ionicons name="checkmark-circle" size={14} color="#4ade80" />
+                <Text style={styles.statusText}>{order.status}</Text>
+              </View>
+            </View>
+            <View style={styles.orderBottom}>
+              <Text style={styles.orderDate}>{order.date}</Text>
+              <Text style={styles.orderTotal}>₹{order.total}</Text>
+            </View>
+          </View>
+        ))}
+        <View style={{ height: 30 }} />
+      </ScrollView>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#1a1a2e' },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingTop: 56,
+    paddingHorizontal: 20,
+    paddingBottom: 16,
+    gap: 14,
+  },
+  backButton: {
+    width: 40, height: 40, borderRadius: 12,
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    justifyContent: 'center', alignItems: 'center',
+  },
+  title: { fontSize: 22, fontWeight: '700', color: '#fff' },
+  content: { paddingHorizontal: 20 },
+  orderCard: {
+    backgroundColor: 'rgba(255,255,255,0.06)',
+    borderRadius: 14, padding: 16, marginBottom: 10,
+    borderWidth: 1, borderColor: 'rgba(255,255,255,0.05)',
+  },
+  orderTop: { flexDirection: 'row', alignItems: 'flex-start', gap: 10, marginBottom: 12 },
+  orderIcon: {
+    width: 40, height: 40, borderRadius: 10,
+    backgroundColor: 'rgba(255,107,53,0.12)',
+    justifyContent: 'center', alignItems: 'center',
+  },
+  orderInfo: { flex: 1 },
+  orderName: { fontSize: 16, fontWeight: '600', color: '#fff', marginBottom: 2 },
+  orderItems: { fontSize: 12, color: 'rgba(255,255,255,0.4)' },
+  statusBadge: {
+    flexDirection: 'row', alignItems: 'center', gap: 4,
+    backgroundColor: 'rgba(74,222,128,0.1)',
+    paddingHorizontal: 8, paddingVertical: 4, borderRadius: 8,
+  },
+  statusText: { color: '#4ade80', fontSize: 11, fontWeight: '600' },
+  orderBottom: {
+    flexDirection: 'row', justifyContent: 'space-between',
+    borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.06)', paddingTop: 10,
+  },
+  orderDate: { color: 'rgba(255,255,255,0.4)', fontSize: 13 },
+  orderTotal: { color: '#FF6B35', fontSize: 16, fontWeight: '700' },
+});
