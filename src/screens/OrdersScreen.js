@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useCart } from '../context/CartContext';
 
 export default function OrdersScreen({ navigation }) {
@@ -42,8 +43,8 @@ export default function OrdersScreen({ navigation }) {
   ];
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#1a1a2e" translucent={false} />
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
           <Text style={styles.title}>Orders</Text>
@@ -117,7 +118,7 @@ export default function OrdersScreen({ navigation }) {
           </View>
         ))}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1a1a2e',
   },
   scrollContent: {
-    paddingTop: 60,
+    paddingTop: 10,
     paddingBottom: 30,
   },
   header: {

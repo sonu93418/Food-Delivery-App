@@ -11,12 +11,14 @@ import {
   Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { restaurants } from '../data/restaurants';
 import { useCart } from '../context/CartContext';
 
 export default function RestaurantDetailScreen({ route, navigation }) {
   const { restaurantId, restaurantName, avgPrice } = route.params;
   const { addToCart, getCartCount } = useCart();
+  const insets = useSafeAreaInsets();
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(30)).current;
 
@@ -59,20 +61,20 @@ export default function RestaurantDetailScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} />
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Hero Image */}
         <View style={styles.heroContainer}>
           <Image source={{ uri: restaurant.image }} style={styles.heroImage} />
           <View style={styles.heroOverlay} />
           <TouchableOpacity
-            style={styles.backButton}
+            style={[styles.backButton, { top: insets.top + 10 }]}
             onPress={() => navigation.goBack()}
           >
             <Ionicons name="arrow-back" size={22} color="#fff" />
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.cartHeaderButton}
+            style={[styles.cartHeaderButton, { top: insets.top + 10 }]}
             onPress={() => navigation.navigate('Cart')}
           >
             <Ionicons name="cart-outline" size={22} color="#fff" />

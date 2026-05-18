@@ -9,6 +9,7 @@ import {
   Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useCart } from '../context/CartContext';
 import { CommonActions } from '@react-navigation/native';
 
@@ -39,8 +40,8 @@ export default function CartScreen({ navigation }) {
 
   if (cartItems.length === 0) {
     return (
-      <View style={styles.container}>
-        <StatusBar barStyle="light-content" />
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="light-content" backgroundColor="#1a1a2e" translucent={false} />
         <View style={styles.emptyContainer}>
           <View style={styles.emptyIcon}>
             <Ionicons name="cart-outline" size={64} color="rgba(255,255,255,0.2)" />
@@ -54,13 +55,13 @@ export default function CartScreen({ navigation }) {
             <Text style={styles.browseButtonText}>Browse Restaurants</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#1a1a2e" translucent={false} />
 
       {/* Header */}
       <View style={styles.header}>
@@ -173,7 +174,7 @@ export default function CartScreen({ navigation }) {
           <Ionicons name="arrow-forward" size={18} color="#fff" />
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -186,7 +187,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingTop: 56,
+    paddingTop: 10,
     paddingHorizontal: 20,
     paddingBottom: 16,
   },

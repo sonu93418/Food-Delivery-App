@@ -12,6 +12,7 @@ import {
   TextInput,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { restaurants, categories } from '../data/restaurants';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
@@ -21,6 +22,7 @@ const { width } = Dimensions.get('window');
 export default function HomeScreen({ navigation }) {
   const { user } = useAuth();
   const { getCartCount } = useCart();
+  const insets = useSafeAreaInsets();
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnims = useRef(restaurants.map(() => new Animated.Value(40))).current;
 
@@ -96,8 +98,8 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
+      <StatusBar barStyle="light-content" backgroundColor="#1a1a2e" translucent={false} />
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={[styles.scrollContent, { paddingTop: insets.top + 16 }]}>
         {/* Header */}
         <View style={styles.header}>
           <View>
@@ -218,7 +220,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#1a1a2e',
   },
   scrollContent: {
-    paddingTop: 60,
     paddingBottom: 20,
   },
   header: {

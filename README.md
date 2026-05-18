@@ -21,6 +21,33 @@ FoodExpress is a full-featured food delivery app interface that showcases naviga
 
 ---
 
+## 📸 App Screenshots
+
+<div align="center">
+
+<img src="./assets/All  features screeen shots.png" alt="FoodExpress App Screenshots" width="100%" />
+
+</div>
+
+<table align="center">
+  <tr>
+    <th>01. Login Screen</th>
+    <th>02. Home Screen</th>
+    <th>03. Search Screen</th>
+    <th>04. Orders Screen</th>
+    <th>05. Profile Screen</th>
+  </tr>
+  <tr>
+    <td>Auth flow with social login options</td>
+    <td>Restaurant listings with categories & featured cards</td>
+    <td>Real-time search with popular suggestions</td>
+    <td>Order history with delivery status tracking</td>
+    <td>User profile with stats, settings & drawer access</td>
+  </tr>
+</table>
+
+---
+
 ## 🛠️ Tech Stack
 
 | Technology | Purpose |
@@ -250,6 +277,7 @@ FoodDeliveryApp/
 │       ├── SettingsScreen.js       # App settings (drawer)
 │       └── HelpScreen.js           # FAQ + support (drawer)
 └── assets/
+    ├── All  features screeen shots.png  # App screenshots showcase
     ├── icon.png
     ├── splash-icon.png
     └── adaptive-icon.png

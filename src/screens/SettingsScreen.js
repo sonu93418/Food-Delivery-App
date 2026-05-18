@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, StatusBar, TouchableOpacity, Switch } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function SettingsScreen({ navigation }) {
   const [notifications, setNotifications] = React.useState(true);
@@ -29,8 +30,8 @@ export default function SettingsScreen({ navigation }) {
   ];
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#1a1a2e" translucent={false} />
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
           <Ionicons name="arrow-back" size={22} color="#fff" />
@@ -66,7 +67,7 @@ export default function SettingsScreen({ navigation }) {
         ))}
         <View style={{ height: 30 }} />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#1a1a2e' },
   header: {
     flexDirection: 'row', alignItems: 'center',
-    paddingTop: 56, paddingHorizontal: 20, paddingBottom: 16, gap: 14,
+    paddingTop: 10, paddingHorizontal: 20, paddingBottom: 16, gap: 14,
   },
   backButton: {
     width: 40, height: 40, borderRadius: 12,

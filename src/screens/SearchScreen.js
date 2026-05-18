@@ -9,6 +9,7 @@ import {
   StatusBar,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { restaurants } from '../data/restaurants';
 
 export default function SearchScreen({ navigation }) {
@@ -23,8 +24,8 @@ export default function SearchScreen({ navigation }) {
     : [];
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#1a1a2e" translucent={false} />
       <View style={styles.header}>
         <Text style={styles.title}>Search</Text>
         <Text style={styles.subtitle}>Find your favourite restaurants & dishes</Text>
@@ -103,7 +104,7 @@ export default function SearchScreen({ navigation }) {
           </TouchableOpacity>
         ))}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1a1a2e',
   },
   header: {
-    paddingTop: 60,
+    paddingTop: 10,
     paddingHorizontal: 20,
     paddingBottom: 10,
   },

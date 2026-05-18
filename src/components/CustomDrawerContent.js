@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   },
   profileSection: {
     paddingHorizontal: 20,
-    paddingTop: 50,
+    paddingTop: 20,
     paddingBottom: 20,
     alignItems: 'center',
   },

@@ -9,6 +9,7 @@ import {
   StatusBar,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const { width, height } = Dimensions.get('window');
 
@@ -57,8 +58,8 @@ export default function OnboardingScreen({ navigation }) {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#1a1a2e" translucent={false} />
       <View style={styles.background}>
         <View style={styles.gradientBg}>
           {/* Decorative circles */}
@@ -131,7 +132,7 @@ export default function OnboardingScreen({ navigation }) {
           </TouchableOpacity>
         </Animated.View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
