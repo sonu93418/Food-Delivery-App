@@ -8,10 +8,10 @@ import SearchScreen from '../screens/SearchScreen';
 import OrdersScreen from '../screens/OrdersScreen';
 import ProfileDrawerNavigator from './ProfileDrawerNavigator';
 import { useCart } from '../context/CartContext';
+import { useTheme } from '../context/ThemeContext';
 
 const Tab = createBottomTabNavigator();
 
-// Helper to hide tab bar on nested screens
 function getTabBarVisibility(route) {
   const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
   if (routeName === 'RestaurantDetail' || routeName === 'Cart') {
@@ -22,30 +22,29 @@ function getTabBarVisibility(route) {
 
 export default function BottomTabNavigator() {
   const { getCartCount } = useCart();
+  const { theme } = useTheme();
   const cartCount = getCartCount();
+
+  const tabBarStyle = {
+    backgroundColor: theme.tabBarBg,
+    borderTopColor: theme.tabBarBorder,
+    borderTopWidth: 1,
+    height: 65,
+    paddingBottom: 8,
+    paddingTop: 8,
+    elevation: 0,
+  };
 
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarStyle: {
-          backgroundColor: '#1a1a2e',
-          borderTopColor: 'rgba(255, 255, 255, 0.06)',
-          borderTopWidth: 1,
-          height: 65,
-          paddingBottom: 8,
-          paddingTop: 8,
-          elevation: 0,
-        },
+        tabBarStyle,
         tabBarActiveTintColor: '#FF6B35',
-        tabBarInactiveTintColor: 'rgba(255, 255, 255, 0.35)',
-        tabBarLabelStyle: {
-          fontSize: 11,
-          fontWeight: '600',
-        },
+        tabBarInactiveTintColor: theme.tabBarInactive,
+        tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
         tabBarIcon: ({ focused, color }) => {
           let iconName;
-
           if (route.name === 'HomeTab') {
             iconName = focused ? 'home' : 'home-outline';
           } else if (route.name === 'SearchTab') {
@@ -55,7 +54,6 @@ export default function BottomTabNavigator() {
           } else if (route.name === 'ProfileTab') {
             iconName = focused ? 'person' : 'person-outline';
           }
-
           return (
             <View style={styles.iconContainer}>
               <Ionicons name={iconName} size={22} color={color} />
@@ -72,13 +70,7 @@ export default function BottomTabNavigator() {
           tabBarLabel: 'Home',
           tabBarStyle: {
             display: getTabBarVisibility(route),
-            backgroundColor: '#1a1a2e',
-            borderTopColor: 'rgba(255, 255, 255, 0.06)',
-            borderTopWidth: 1,
-            height: 65,
-            paddingBottom: 8,
-            paddingTop: 8,
-            elevation: 0,
+            ...tabBarStyle,
           },
         })}
       />
@@ -94,14 +86,9 @@ export default function BottomTabNavigator() {
           tabBarLabel: 'Orders',
           tabBarBadge: cartCount > 0 ? cartCount : undefined,
           tabBarBadgeStyle: {
-            backgroundColor: '#e94560',
-            color: '#fff',
-            fontSize: 10,
-            fontWeight: '700',
-            minWidth: 18,
-            height: 18,
-            lineHeight: 18,
-            borderRadius: 9,
+            backgroundColor: '#e94560', color: '#fff',
+            fontSize: 10, fontWeight: '700',
+            minWidth: 18, height: 18, lineHeight: 18, borderRadius: 9,
           },
         }}
       />
@@ -115,15 +102,9 @@ export default function BottomTabNavigator() {
 }
 
 const styles = StyleSheet.create({
-  iconContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  iconContainer: { alignItems: 'center', justifyContent: 'center' },
   activeIndicator: {
-    width: 4,
-    height: 4,
-    borderRadius: 2,
-    backgroundColor: '#FF6B35',
-    marginTop: 4,
+    width: 4, height: 4, borderRadius: 2,
+    backgroundColor: '#FF6B35', marginTop: 4,
   },
 });

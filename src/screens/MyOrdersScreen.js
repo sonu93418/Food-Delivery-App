@@ -2,8 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, StatusBar, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useTheme } from '../context/ThemeContext';
 
 export default function MyOrdersScreen({ navigation }) {
+  const { theme } = useTheme();
   const orders = [
     { id: '1', restaurant: 'Biryani House', items: 'Chicken Biryani, Raita', total: 298, date: 'May 15, 2026', status: 'Delivered' },
     { id: '2', restaurant: 'Pizza Paradise', items: 'Margherita Pizza, Garlic Bread', total: 448, date: 'May 12, 2026', status: 'Delivered' },
@@ -13,32 +15,32 @@ export default function MyOrdersScreen({ navigation }) {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#1a1a2e" translucent={false} />
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.bg }]}>
+      <StatusBar barStyle={theme.statusBar} backgroundColor={theme.statusBarBg} translucent={false} />
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={22} color="#fff" />
+        <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.backButton, { backgroundColor: theme.iconBg }]}>
+          <Ionicons name="arrow-back" size={22} color={theme.text} />
         </TouchableOpacity>
-        <Text style={styles.title}>My Orders</Text>
+        <Text style={[styles.title, { color: theme.text }]}>My Orders</Text>
       </View>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
         {orders.map((order) => (
-          <View key={order.id} style={styles.orderCard}>
+          <View key={order.id} style={[styles.orderCard, { backgroundColor: theme.card, borderColor: theme.cardBorder }]}>
             <View style={styles.orderTop}>
               <View style={styles.orderIcon}>
                 <Ionicons name="restaurant" size={18} color="#FF6B35" />
               </View>
               <View style={styles.orderInfo}>
-                <Text style={styles.orderName}>{order.restaurant}</Text>
-                <Text style={styles.orderItems}>{order.items}</Text>
+                <Text style={[styles.orderName, { color: theme.text }]}>{order.restaurant}</Text>
+                <Text style={[styles.orderItems, { color: theme.textSecondary }]}>{order.items}</Text>
               </View>
               <View style={styles.statusBadge}>
                 <Ionicons name="checkmark-circle" size={14} color="#4ade80" />
                 <Text style={styles.statusText}>{order.status}</Text>
               </View>
             </View>
-            <View style={styles.orderBottom}>
-              <Text style={styles.orderDate}>{order.date}</Text>
+            <View style={[styles.orderBottom, { borderTopColor: theme.divider }]}>
+              <Text style={[styles.orderDate, { color: theme.textSecondary }]}>{order.date}</Text>
               <Text style={styles.orderTotal}>₹{order.total}</Text>
             </View>
           </View>
@@ -50,26 +52,19 @@ export default function MyOrdersScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#1a1a2e' },
+  container: { flex: 1 },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingTop: 10,
-    paddingHorizontal: 20,
-    paddingBottom: 16,
-    gap: 14,
+    flexDirection: 'row', alignItems: 'center',
+    paddingTop: 10, paddingHorizontal: 20, paddingBottom: 16, gap: 14,
   },
   backButton: {
     width: 40, height: 40, borderRadius: 12,
-    backgroundColor: 'rgba(255,255,255,0.08)',
     justifyContent: 'center', alignItems: 'center',
   },
-  title: { fontSize: 22, fontWeight: '700', color: '#fff' },
+  title: { fontSize: 22, fontWeight: '700' },
   content: { paddingHorizontal: 20 },
   orderCard: {
-    backgroundColor: 'rgba(255,255,255,0.06)',
-    borderRadius: 14, padding: 16, marginBottom: 10,
-    borderWidth: 1, borderColor: 'rgba(255,255,255,0.05)',
+    borderRadius: 14, padding: 16, marginBottom: 10, borderWidth: 1,
   },
   orderTop: { flexDirection: 'row', alignItems: 'flex-start', gap: 10, marginBottom: 12 },
   orderIcon: {
@@ -78,8 +73,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center', alignItems: 'center',
   },
   orderInfo: { flex: 1 },
-  orderName: { fontSize: 16, fontWeight: '600', color: '#fff', marginBottom: 2 },
-  orderItems: { fontSize: 12, color: 'rgba(255,255,255,0.4)' },
+  orderName: { fontSize: 16, fontWeight: '600', marginBottom: 2 },
+  orderItems: { fontSize: 12 },
   statusBadge: {
     flexDirection: 'row', alignItems: 'center', gap: 4,
     backgroundColor: 'rgba(74,222,128,0.1)',
@@ -88,8 +83,8 @@ const styles = StyleSheet.create({
   statusText: { color: '#4ade80', fontSize: 11, fontWeight: '600' },
   orderBottom: {
     flexDirection: 'row', justifyContent: 'space-between',
-    borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.06)', paddingTop: 10,
+    borderTopWidth: 1, paddingTop: 10,
   },
-  orderDate: { color: 'rgba(255,255,255,0.4)', fontSize: 13 },
+  orderDate: { fontSize: 13 },
   orderTotal: { color: '#FF6B35', fontSize: 16, fontWeight: '700' },
 });

@@ -6,10 +6,13 @@ import MyOrdersScreen from '../screens/MyOrdersScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import HelpScreen from '../screens/HelpScreen';
 import CustomDrawerContent from '../components/CustomDrawerContent';
+import { useTheme } from '../context/ThemeContext';
 
 const Drawer = createDrawerNavigator();
 
 export default function ProfileDrawerNavigator() {
+  const { theme } = useTheme();
+
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawerContent {...props} />}
@@ -17,12 +20,12 @@ export default function ProfileDrawerNavigator() {
         headerShown: false,
         drawerPosition: 'right',
         drawerStyle: {
-          backgroundColor: '#1a1a2e',
+          backgroundColor: theme.drawerBg,
           width: 280,
         },
         drawerActiveTintColor: '#FF6B35',
-        drawerInactiveTintColor: 'rgba(255, 255, 255, 0.5)',
-        drawerActiveBackgroundColor: 'rgba(255, 107, 53, 0.1)',
+        drawerInactiveTintColor: theme.drawerInactive,
+        drawerActiveBackgroundColor: theme.drawerActive,
         drawerLabelStyle: {
           fontSize: 15,
           fontWeight: '600',
